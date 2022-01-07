@@ -37,43 +37,43 @@ public class Main {
 	
 	public static void main(String [] args) {
 		Scanner move = new Scanner(System.in); // this snake is a little bad so we use scanner for the movement
-		Main Snake = new Main(10, 0, 0);
-		char world[][] = new char[Snake.worldSize][Snake.worldSize];
-		while(true) {
+		Main Snake = new Main(10, 0, 0); // we create a world of 10x10 size
+		char world[][] = new char[Snake.worldSize][Snake.worldSize]; // set the world array max size
+		while(true) { // game loop
 			System.out.println("Score: " + Snake.length);
-			logic(Snake, world);
-			drawWorld(Snake, world);
-			System.out.println("Your move? left=1, right=2, up=3, down=4");
-			move(move, Snake);
+			logic(Snake, world); // logic method where all the snake game logic is
+			drawWorld(Snake, world); // just draw the world
+			System.out.println("Your move? left=1, right=2, up=3, down=4"); // print out the controlls
+			move(move, Snake); // and move the snake method
 		}   
 	}
 	
 	public static void logic(Main Snake, char world[][]) {
-		if(Snake.x[0] == world.length) {
+		if(Snake.x[0] == world.length) { // make the x pos of the snake go around the board
 			Snake.x[0] = 0;
-		}else if(Snake.x[0] == -1) {
+		}else if(Snake.x[0] == -1) { // make the x pos of the snake go around the board the other side the minus side
 			Snake.x[0] = world.length-1;
 		}
-		if(Snake.y[0] == world.length) {
+		if(Snake.y[0] == world.length) { // the same as for the x pos, but for y
 			Snake.y[0] = 0;
-		}else if(Snake.y[0] == -1) {
+		}else if(Snake.y[0] == -1) { // the same as for the x minus pos, but for y
 			Snake.y[0] = world.length-1;
 		}
-		for(int i = 0; i < Snake.length; i++) {
+		for(int i = 0; i < Snake.length; i++) { // put the snake body on the board
 			world[Snake.x[i]][Snake.y[i]] = Snake.bodyType;
 		}
-		if(Snake.foodPosX == Snake.x[0] && Snake.foodPosY == Snake.y[0]) {
+		if(Snake.foodPosX == Snake.x[0] && Snake.foodPosY == Snake.y[0]) { // if the head of the snake hits apple the score gets bigger and also the snake is
 			for(int i = 0; world[Snake.foodPosX][Snake.foodPosY] == Snake.bodyType && i <= Snake.length; i++) {
-			Snake.foodPosX = Snake.foodPosY = new Random().nextInt((Snake.worldSize-1) + 1);
+			Snake.foodPosX = Snake.foodPosY = new Random().nextInt((Snake.worldSize-1) + 1); // when the apple hits the snake body, the apple gets new position
 			}
-			Snake.length++;
+			Snake.length++; // make the snake bigger
 		}
-		world[Snake.foodPosX][Snake.foodPosY] = 176;
+		world[Snake.foodPosX][Snake.foodPosY] = 176; // just set the char of the apple
 	}
 	
-	public static void drawWorld(Main Snake, char world[][]) {
+	public static void drawWorld(Main Snake, char world[][]) { // draw the world out to the console
 		for(int i = 0; i < world.length; i++) {
-			for(int j = 0; j < world.length; j++) {
+			for(int j = 0; j < world[0].length; j++) {
 				System.out.print(world[i][j]);
 				world[i][j] = Snake.worldType;
 			}	
@@ -88,8 +88,8 @@ public class Main {
 		}
 	}
 	
-	public static void move(Scanner move, Main Snake) {
-		switch(move.next()) {
+	public static void move(Scanner move, Main Snake) { // y and x positions start from the left upper corner of the screen or the array and move the snake according to that
+		switch(move.next()) { // we need to shiftxy position to the right because index 0 is the head and to make a room for new snake body coordinates
 		case "a":
 			shiftXY(Snake);
 			Snake.y[0] -= 1;
