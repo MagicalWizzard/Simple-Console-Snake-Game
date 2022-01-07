@@ -8,35 +8,35 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
-	int foodPosX, foodPosY;
-	char bodyType;
-	char worldType;
-	int worldSize;
-	int length;
-	int x [] = new int [900];
-	int y [] = new int [900];
+	int foodPosX, foodPosY; //Exactly what you think it is, position of food on the x annd y axis
+	char bodyType; //what char is the body
+	char worldType; // what char is the world/board
+	int worldSize; // size of the world a*a
+	int length; //length of the snake
+	int x [] = new int [900]; // we have two arrays they are used for storing previous position that the snake was in
+	int y [] = new int [900]; // they are then used for printing out the snake body on the board
 	Main(int worldSize, char bodyType, char worldType){
 		if(bodyType == 0) {
-			this.bodyType = 'x';
+			this.bodyType = 'x'; // set bodytype x if 0
 		}
 		if(worldType == 0) {
-			this.worldType = '-';
+			this.worldType = '-'; // set worldtype - if 0
 		}
 		this.worldSize = worldSize;
 		this.length = 3;
-		foodPosY = foodPosX = new Random().nextInt((this.worldSize-1) + 1);
-		for(int i = 0; i < 900; i++) {
+		foodPosY = foodPosX = new Random().nextInt((this.worldSize-1) + 1); // generate a random position for the food on the x and y axis
+		for(int i = 0; i < 900; i++) { //null out the x and y
 			x[i] = y[i] = 0;
 		}
-			x[0] = y[0] = x[1] = y[1] = x[2] = y[2]= new Random().nextInt((this.worldSize-1) + 1);
+			x[0] = y[0] = x[1] = y[1] = x[2] = y[2]= new Random().nextInt((this.worldSize-1) + 1); // generate random position of the snake
 
 	}
-	Main(int worldSize, int bodyType, int worldType){
-		this(worldSize, (char)bodyType, (char)worldType);
+	Main(int worldSize, int bodyType, int worldType){ // constructor for the snake, set wordlSize, bodyType, worldType 
+		this(worldSize, (char)bodyType, (char)worldType); // all in chars
 	}
 	
 	public static void main(String [] args) {
-		Scanner move = new Scanner(System.in);
+		Scanner move = new Scanner(System.in); // this snake is a little bad so we use scanner for the movement
 		Main Snake = new Main(10, 0, 0);
 		char world[][] = new char[Snake.worldSize][Snake.worldSize];
 		while(true) {
